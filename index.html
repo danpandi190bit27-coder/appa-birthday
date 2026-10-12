@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Appa 🎂</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #292129;
+    background: linear-gradient(120deg, #ff9aab, #ffe0d3);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+header {
+    padding: 12px 10px;
+}
+
+h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    margin: 12px 0 25px;
+}
+
+.subtitle {
+    font-size: 19px;
+    line-height: 1.6;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px 10px;
+}
+
+nav button, .action {
+    background: #ff416c;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 22px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+nav button:hover, .action:hover {
+    background: #e91e63;
+    transform: translateY(-3px);
+}
+
+main {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+section {
+    display: none;
+    background: rgba(255, 255, 255, 0.58);
+    padding: 25px 20px;
+    margin: 25px 0;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(150, 40, 80, 0.12);
+    animation: fadeIn 0.5s ease;
+}
+
+section.active {
+    display: block;
+}
+
+h2 {
+    color: #c2185b;
+    font-size: 28px;
+}
+
+.message {
+    max-width: 700px;
+    margin: 18px auto;
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.55);
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+/* MEMORIES PHOTO */
+.memory-photo {
+    width: 100%;
+    max-width: 420px;
+    margin: 25px auto;
+    padding: 12px;
+    background: white;
+    border: 2px solid #ffd1dc;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(180, 40, 90, 0.18);
+}
+
+.memory-photo img {
+    display: block;
+    width: 100%;
+    max-height: 450px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.memory-photo p {
+    margin: 12px 5px 4px;
+    color: #c2185b;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+#photoError {
+    display: none;
+    overflow-wrap: anywhere;
+}
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatUp linear forwards;
+}
+
+header, main, footer {
+    position: relative;
+    z-index: 1;
+}
+
+footer {
+    padding: 20px;
+    color: #77354b;
+    line-height: 1.8;
+}
+
+#surpriseMessage {
+    color: #bd2455;
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+/* PASSWORD SCREEN */
+#passwordScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #ff9aab, #ffe0d3);
+}
+
+.password-card {
+    background: rgba(255,255,255,0.88);
+    padding: 35px 25px;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 30px rgba(150,40,80,0.2);
+}
+
+.password-card h2 {
+    font-size: 30px;
+}
+
+#passwordInput {
+    width: 100%;
+    padding: 14px;
+    margin: 15px 0;
+    border: 2px solid #ff9aab;
+    border-radius: 10px;
+    font-size: 17px;
+    text-align: center;
+    outline-color: #ff416c;
+}
+
+#passwordError {
+    display: none;
+    color: #c2185b;
+    font-size: 15px;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh) rotate(30deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    nav button {
+        width: 95%;
+    }
+
+    main {
+        width: 94%;
+    }
+
+    section {
+        padding: 20px 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen">
+    <div class="password-card">
+        <h2>🎁 A Special Surprise</h2>
+
+        <p>Enter the password to open your birthday surprise 💗</p>
+
+        <form id="passwordForm">
+            <input
+                type="password"
+                id="passwordInput"
+                placeholder="Enter password"
+                autocomplete="off"
+                required
+            >
+
+            <br>
+
+            <button type="submit" class="action">
+                Unlock 🎂
+            </button>
+        </form>
+
+        <p id="passwordError">
+            Incorrect password. Please try again! 💗
+        </p>
+    </div>
+</div>
+
+<!-- BIRTHDAY PAGE -->
+<header>
+    <h1>🎂 Happy Birthday Appa 💗 🎂</h1>
+
+    <p class="subtitle">
+        Wishing you a happy birthday and a wonderful year ahead!
+    </p>
+
+    <nav>
+        <button onclick="showSection('wishes')">
+            🎉 Birthday Wishes
+        </button>
+
+        <button onclick="showSection('memories')">
+            📸 Memories
+        </button>
+
+        <button onclick="showSection('message')">
+            💌 Birthday Message
+        </button>
+
+        <button onclick="showSection('surprise')">
+            🎁 Final Surprise
+        </button>
+    </nav>
+</header>
+
+<main>
+
+    <!-- BIRTHDAY WISHES -->
+    <section id="wishes" class="active">
+        <h2>🎉 Birthday Wishes</h2>
+
+        <div class="message">
+            Happy Birthday, Appa! 🎂
+            <br>
+            Wishing you good health, happiness, peace,
+            and success in the coming year.
+            <br>
+            May your special day bring plenty of reasons
+            to smile. 🎈
+        </div>
+    </section>
+
+    <!-- MEMORIES WITH PNG PHOTO -->
+    <section id="memories">
+        <h2>📸 Memories</h2>
+
+        <p class="message">
+            A special moment worth remembering. 🌷
+        </p>
+
+        <div class="memory-photo">
+            <img
+                src="./appa-photo.png"
+                alt="A special birthday memory"
+                id="memoryImage"
+            >
+
+            <p id="photoCaption">📷 A special memory</p>
+
+            <p id="photoError">
+                Photo not found! Put appa-photo.png in the same
+                folder as appa.html.
+            </p>
+        </div>
+
+        <p>One picture, one moment, one memory. ✨</p>
+    </section>
+
+    <!-- BIRTHDAY MESSAGE -->
+    <section id="message">
+        <h2>💌 Birthday Message</h2>
+
+        <div class="message">
+            Happy Birthday, Appa!
+            <br><br>
+            Hope you have a pleasant day and get time to relax
+            and enjoy yourself.
+            <br><br>
+            Wishing you a healthy, peaceful, and happy year
+            ahead. Have a great birthday! 🎂
+        </div>
+    </section>
+
+    <!-- FINAL SURPRISE -->
+    <section id="surprise">
+        <h2>🎁 A Little Birthday Surprise</h2>
+
+        <p>Here is one final birthday greeting! 🎈</p>
+
+        <button class="action" onclick="revealSurprise()">
+            Open Your Surprise 🎀
+        </button>
+
+        <div id="surpriseMessage"></div>
+
+        <button class="action" onclick="celebrate()">
+            🎉 Celebrate
+        </button>
+    </section>
+
+</main>
+
+<footer>
+    🎂 Happy Birthday, Appa! 🎈
+    <br>
+    Wishing you a great year ahead.
+</footer>
+
+<script>
+/* PASSWORD CHECK */
+document.getElementById("passwordForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const password = document.getElementById("passwordInput").value;
+
+    if (password === "tanuru") {
+        document.getElementById("passwordScreen").style.display = "none";
+        document.getElementById("passwordError").style.display = "none";
+    } else {
+        document.getElementById("passwordError").style.display = "block";
+        document.getElementById("passwordInput").value = "";
+        document.getElementById("passwordInput").focus();
+    }
+});
+
+/* CHANGE PAGE SECTION */
+function showSection(id) {
+    document.querySelectorAll("main section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+/* FINAL SURPRISE */
+function revealSurprise() {
+    document.getElementById("surpriseMessage").innerHTML = `
+        <div class="message">
+            🎂 HAPPY BIRTHDAY, APPA! 🎂
+            <br><br>
+            Wishing you good health, happiness, peace,
+            and many pleasant moments in the year ahead.
+            <br><br>
+            Enjoy your special day! 🎉
+        </div>
+    `;
+
+    launchHearts();
+}
+
+/* CELEBRATION */
+function celebrate() {
+    launchHearts();
+
+    document.getElementById("surpriseMessage").innerHTML += `
+        <div class="message">
+            🎈 Have a wonderful birthday! 🎈
+        </div>
+    `;
+}
+
+/* FLOATING DECORATIONS */
+function launchHearts() {
+    const emojis = ["🎉", "🎂", "💗", "✨", "🎈"];
+
+    for (let i = 0; i < 30; i++) {
+        const item = document.createElement("div");
+
+        item.className = "heart";
+        item.textContent =
+            emojis[Math.floor(Math.random() * emojis.length)];
+
+        item.style.left = Math.random() * 100 + "vw";
+        item.style.fontSize = (18 + Math.random() * 20) + "px";
+        item.style.animationDuration = (3 + Math.random() * 4) + "s";
+
+        document.body.appendChild(item);
+
+        setTimeout(() => item.remove(), 7500);
+    }
+}
+
+/* BACKGROUND ANIMATION */
+setInterval(() => {
+    const item = document.createElement("div");
+
+    item.className = "heart";
+    item.textContent = Math.random() > 0.5 ? "✨" : "🎈";
+    item.style.left = Math.random() * 100 + "vw";
+    item.style.fontSize = "20px";
+    item.style.animationDuration = "7s";
+
+    document.body.appendChild(item);
+
+    setTimeout(() => item.remove(), 7000);
+}, 1200);
+
+/* DISPLAY MESSAGE IF PNG IS MISSING */
+document.getElementById("memoryImage").addEventListener("error", function() {
+    this.style.display = "none";
+    document.getElementById("photoError").style.display = "block";
+});
+</script>
+
+</body>
+</html>
